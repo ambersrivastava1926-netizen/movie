@@ -1,14 +1,20 @@
 import streamlit as st
+from utils.helpers import load_players
 
-st.title("My First Streamlit App")
+st.set_page_config(page_title="Player Stats", layout="wide")
 
-st.write("Hello 👋 This is a simple Streamlit example.")
+st.title("🏆 Player Stats Website")
+st.subheader("Track top Cricket & Football players")
 
-name = st.text_input("Enter your name")
+players = load_players()
 
-if name:
-    st.success(f"Welcome, {name}!")
+col1, col2 = st.columns(2)
+with col1:
+    st.metric("Total Players", len(players))
+with col2:
+    st.metric("Sports Covered", players["sport"].nunique())
 
-value = st.slider("Select a number", 0, 100, 50)
-st.write("Selected value:", value)
+st.markdown("---")
+st.dataframe(players[["name", "sport", "country", "matches"]], use_container_width=True)
+
 
