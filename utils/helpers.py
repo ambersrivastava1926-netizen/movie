@@ -5,7 +5,10 @@ from datetime import date
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 def load_players():
-    return pd.read_csv(BASE_DIR / "data" / "players.csv")
+    return pd.read_csv(
+        BASE_DIR / "data" / "players.csv",
+        encoding="latin1"
+    )
 
 def calculate_age(dob):
     dob = pd.to_datetime(dob).date()
